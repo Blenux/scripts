@@ -1,0 +1,19 @@
+#!/bin/bash
+
+OUTPUT="DP-2"
+
+CURRENT=$(kscreen-doctor -o | grep "Geometry:" | head -1)
+
+echo "Current: $CURRENT"
+
+if echo "$CURRENT" | grep -q "2560x1440"; then
+    echo "Setting 1080p @ 165Hz"
+    kscreen-doctor output.$OUTPUT.mode.1920x1080@165
+
+elif echo "$CURRENT" | grep -q "1920x1080"; then
+    echo "Setting 1440p @ 165Hz"
+    kscreen-doctor output.$OUTPUT.mode.2560x1440@165
+
+else
+    echo "Could not determine current resolution."
+fi
